@@ -1,21 +1,21 @@
 @propertyWrapper struct TwelveOrLess{private var number = 0;var wrappedValue:Int{get{return number}
 set{number = min(newValue,12)}}}
 struct SmallRectangle{
- private var _width = TwelveOrLess(),_height = TwelveOrLess()
+ private var number = TwelveOrLess()
  private var width:Int{
   get{
-   return _width.wrappedValue
+   return number.wrappedValue
   }
   set{
-   _width.wrappedValue = newValue
+   number.wrappedValue = newValue
   }
  }
  private var height:Int{
   get{
-   return _height.wrappedValue
+   return number.wrappedValue
   }
   set{
-   _height.wrappedValue = newValue
+   number.wrappedValue = newValue
   }
  }
 }
@@ -40,7 +40,7 @@ struct SmallNumber{
   set{
    number = min(
     newValue,
-    maximum
+    12
    )
   }
  }
@@ -95,3 +95,6 @@ print(
 )
 mixedRectangle.height = 20
 print(mixedRectangle.height)
+@propertyWrapper 
+struct AnotherSmallNumber{
+}
