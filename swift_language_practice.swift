@@ -2,12 +2,8 @@
 set{number = min(newValue,12)}}}
 struct SmallRectangle{
  private var number = TwelveOrLess()
- private var width:Int{
-  get{return number.wrappedValue}
-  set{
-   number.wrappedValue = newValue
-  }
- }
+ private var width:Int{get{return number.wrappedValue}
+set{number.wrappedValue = newValue}}
  private var height:Int{
   get{
    return number.wrappedValue
@@ -36,10 +32,7 @@ struct SmallNumber{
    return number
   }
   set{
-   number = min(
-    newValue,
-    12
-   )
+   number = min(newValue,maximum)
   }
  }
  init(){
@@ -83,7 +76,7 @@ print(
  narrowRectangle.height
 )
 struct MixedRectangle{
- @SmallNumber(maximum:5) var width:Int = 9
+ @SmallNumber(maximum:9) var width:Int = 5
  @SmallNumber var height:Int = 10
 }
 var mixedRectangle = MixedRectangle()
