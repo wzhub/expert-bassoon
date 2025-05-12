@@ -2,13 +2,8 @@
 set{number = min(newValue,12)}}}
 struct SmallRectangle{
  private var number = TwelveOrLess();var width:Int{get{return number.wrappedValue}
+set{number.wrappedValue = newValue}};var height:Int{get{return number.wrappedValue}
 set{number.wrappedValue = newValue}}
- var height:Int{
-  get{return number.wrappedValue}
-  set{
-   number.wrappedValue = newValue
-  }
- }
 }
 struct AnotherSmallRectangle{
  @TwelveOrLess private var width:Int
@@ -93,10 +88,19 @@ print(
 @propertyWrapper 
 struct AnotherSmallNumber{
  private var number:Int
- private(set) var projectedValue:Int
+ private(set) var projectedValue:Bool
  var wrappedValue:Int{
   get{
    return number
+  }
+  set{
+   if newValue > 12{
+    number = 12
+    projectedValue = true
+   }else{
+    number = 12
+    projectedValue = false
+   }
   }
  }
 }
