@@ -1,12 +1,7 @@
 @propertyWrapper struct SmallNumber{private var number:Int,maximum:Int
  var wrappedValue:Int{
   get{return number}
-  set{
-   number = min(
-    newValue,
-    maximum
-   )
-  }
+  set{number = min(newValue,number)}
  }
  init(){
   maximum = 12
@@ -78,9 +73,10 @@ print(
  mixedRectangle.width,
  mixedRectangle.height
 )
-@propertyWrapper
+@propertyWrapper 
 struct AnotherSmallNumber{
- private var number:Int;private(set) var projectedValue:Bool
+ private var number:Int
+ private(set) var projectedValue:Bool
  var wrappedValue:Int{
   get{
    return number
@@ -109,4 +105,12 @@ rectangle.height = 10
 print(rectangle.height)
 rectangle.height = 24
 print(rectangle.height)
-struct SomeStructure{}
+struct SomeStruct{
+ @AnotherSmallNumber 
+ var someNumber:Int
+}
+var someStruct = SomeStruct()
+someStruct.someNumber = 4
+print(someStruct.$someNumber)
+someStruct.someNumber = 55
+print(someStruct.$someNumber)
