@@ -1,27 +1,5 @@
 @propertyWrapper struct SmallNumber{private var number:Int,maximum:Int;var wrappedValue:Int{get{return number}
-set{number = min(number,maximum)}}
- init(){
-  maximum = 12
-  number = 0
- }
- init(wrappedValue:Int){
-  maximum = 12
-  number = min(
-   wrappedValue,
-   maximum
-  )
- }
- init(
-  wrappedValue:Int,
-  maximum:Int
- ){
-  self.maximum = maximum
-  number = min(
-   wrappedValue,
-   maximum
-  )
- }
-}
+set{number = min(newValue,maximum)}};init(){maximum = 12;number = 0};init(wrappedValue:Int){maximum = 12;number = min(wrappedValue,maximum)};init(wrappedValue:Int,maximum:Int){self.maximum = maximum;number = min(wrappedValue,maximum)}}
 struct ZeroRectangle{
  @SmallNumber var width:Int
  @SmallNumber var height:Int
@@ -65,12 +43,12 @@ print(
  mixedRectangle.height
 )
 mixedRectangle.width = 20
-mixedRectangle.height = 20
+mixedRectangle.width = 20
 print(
  mixedRectangle.width,
  mixedRectangle.height
 )
-@propertyWrapper 
+@propertyWrapper
 struct AnotherSmallNumber{
  private var number:Int
  private(set) var projectedValue:Bool
@@ -106,11 +84,12 @@ struct SomeStruct{
  @AnotherSmallNumber var someNumber:Int
 }
 var someStruct = SomeStruct()
-someStruct.someNumber = 20
+someStruct.someNumber = 5
 print(someStruct.$someNumber)
-someStruct.someNumber = 4
+someStruct.someNumber = 55
 print(someStruct.$someNumber)
 enum Size{
  case large
  case small
 }
+struct SizedRectangle{}
