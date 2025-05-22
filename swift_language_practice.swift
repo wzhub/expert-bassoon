@@ -1,8 +1,7 @@
 @propertyWrapper struct SmallNumber{private var number:Int,maximum:Int;var wrappedValue:Int{get{return number}
-set{number = min(newValue,maximum)}};init(){maximum = 12;number = 0};init(wrappedValue:Int){maximum = 12;number = min(wrappedValue,maximum)};init(wrappedValue:Int,maximum:Int){self.maximum = maximum;number = min(wrappedValue,maximum)}}
+set{number = min(newValue,maximum)}};init(){number = 0;maximum = 12};init(wrappedValue:Int){maximum = 12;number = min(wrappedValue,maximum)};init(wrappedValue:Int,maximum:Int){self.maximum = maximum;number = min(wrappedValue,maximum)}}
 struct ZeroRectangle{
- @SmallNumber var width:Int
- @SmallNumber var height:Int
+ @SmallNumber var width:Int;@SmallNumber var height:Int
 }
 let zeroRectangle = ZeroRectangle()
 print(
@@ -43,7 +42,7 @@ print(
  mixedRectangle.height
 )
 mixedRectangle.width = 20
-mixedRectangle.width = 20
+mixedRectangle.height = 20
 print(
  mixedRectangle.width,
  mixedRectangle.height
@@ -92,4 +91,7 @@ enum Size{
  case large
  case small
 }
-struct SizedRectangle{}
+struct SizableRectangle{
+ @AnotherSmallNumber var height:Int
+ @AnotherSmallNumber var width:Int
+}
