@@ -1,10 +1,8 @@
-@propertyWrapper struct SmallValue{private var number:Int,maximum:Int;var wrappedValue:Int{get{return number}
-set{number = min(newValue,maximum)}};init(){maximum = 12;number = 0};init(wrappedValue:Int){maximum = 12;number = min(wrappedValue,maximum)};init(wrappedValue:Int,maximum:Int){self.maximum = maximum;number = min(wrappedValue,maximum)}}
-struct ZeroRectangle{@SmallValue var width:Int;@SmallValue var height:Int};let zeroRectangle = ZeroRectangle()
-print(zeroRectangle.width,zeroRectangle.height)
+@propertyWrapper struct SmallNumber{private var number:Int,maximum:Int;var wrappedValue:Int{get{return number}
+set{number = min(newValue,maximum)}};init(){maximum = 12;number = 0};init(wrappedValue:Int){maximum = 12;number = min(wrappedValue,maximum)};init(wrappedValue:Int,maximum:Int){self.maximum = maximum;number = min(wrappedValue,maximum)}};struct ZeroRectangle{@SmallNumber var width:Int;@SmallNumber var height:Int};let zeroRectangle = ZeroRectangle();print(zeroRectangle.width,zeroRectangle.height)
 struct UnitRectangle{
- @SmallValue var width:Int = 1
- @SmallValue var height:Int = 1
+ @SmallNumber var width:Int = 1
+ @SmallNumber var height:Int = 1
 }
 let unitRectangle = UnitRectangle()
 print(
@@ -12,11 +10,11 @@ print(
  unitRectangle.height
 )
 struct NarrowRectangle{
- @SmallValue(
+ @SmallNumber(
   wrappedValue:2,
   maximum:5
  ) var width:Int
- @SmallValue(
+ @SmallNumber(
   wrappedValue:3,
   maximum:4
  ) var height:Int
@@ -27,8 +25,8 @@ print(
  narrowRectangle.height
 )
 struct MixedRectangle{
- @SmallValue(maximum:10) var width:Int = 5
- @SmallValue var height:Int = 9
+ @SmallNumber(maximum:10) var width:Int = 5
+ @SmallNumber var height:Int = 9
 }
 var mixedRectangle = MixedRectangle()
 print(
@@ -42,7 +40,7 @@ print(
  mixedRectangle.height
 )
 @propertyWrapper
-struct AnotherSmallValue{
+struct AnotherSmallNumber{
  private var number:Int
  private(set) var projectedValue:Bool
  var wrappedValue:Int{
@@ -65,7 +63,7 @@ struct AnotherSmallValue{
  }
 }
 struct SmallRectangle{
- @AnotherSmallValue private var width:Int;@AnotherSmallValue var height:Int
+ @AnotherSmallNumber private var width:Int;@AnotherSmallNumber var height:Int
 }
 var rectangle = SmallRectangle()
 print(rectangle.height)
@@ -74,7 +72,7 @@ print(rectangle.height)
 rectangle.height = 24
 print(rectangle.height)
 struct SomeStruct{
- @AnotherSmallValue var someNumber:Int
+ @AnotherSmallNumber var someNumber:Int
 }
 var someStruct = SomeStruct()
 someStruct.someNumber = 5
@@ -82,13 +80,21 @@ print(someStruct.$someNumber)
 someStruct.someNumber = 55
 print(someStruct.$someNumber)
 enum Size{
- case large
  case small
+ case large
 }
 struct SizedRectangle{
- @AnotherSmallValue private var width:Int
- @AnotherSmallValue private var height:Int
- func resize()->Bool{
-  return false
+ @AnotherSmallNumber private var width:Int
+ @AnotherSmallNumber private var height:Int
+ mutating func resize(to size:Size)->Bool{
+  switch size{
+   case .small:
+    width = 10
+    height = 10
+   case .large:
+    width = 100
+    height = 100
+  }
+  return $width || $height
  }
 }
