@@ -1,11 +1,7 @@
 let members = [
- "familyName0":"firstName0",
- "familyName1":"firstName1",
- "familyName2":"firstName2"
+    "familyName0": "firstName0",
+    "familyName1": "firstName1", 
+    "familyName2": "firstName2"
 ]
-for member in members{
- print(
-  member.key,
-  member.value
- )
-}
+
+members.forEach { print($0.key, $0.value) }
