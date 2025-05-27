@@ -1,31 +1,21 @@
-@propertyWrapper
-struct SmallNumber {
-    private var number: Int
-    private let maximum: Int
-
-    var wrappedValue: Int {
-        get { number }
-        set { number = min(newValue, maximum) }
-    }
-
-    init(wrappedValue: Int, maximum: Int = 12) {
-        self.maximum = maximum
-        self.number = min(wrappedValue, maximum)
-    }
+@propertyWrapper struct SmallNumber{private var number:Int;private let maximum:Int;var wrappedValue:Int{get{number}
+set{number = min(newValue,maximum)}};init(wrappedValue:Int,maximum:Int = 12){self.maximum = maximum;self.number = min(wrappedValue,maximum)}}
+struct MixedRectangle{
+ @SmallNumber(maximum:10) var width = 5;@SmallNumber var height = 9
 }
-
-struct MixedRectangle {
-    @SmallNumber(maximum: 10) var width = 5
-    @SmallNumber var height = 9
-}
-
 var mixedRectangle = MixedRectangle()
-print(mixedRectangle.width, mixedRectangle.height)
-
+print(
+ mixedRectangle.width,
+ mixedRectangle.height
+)
 mixedRectangle.width = 20
 mixedRectangle.height = 20
-print(mixedRectangle.width, mixedRectangle.height)
-@propertyWrapper struct AnotherSmallNumber{
+print(
+ mixedRectangle.width,
+ mixedRectangle.height
+)
+@propertyWrapper
+struct AnotherSmallNumber{
  private var number:Int
  private(set) var projectedValue:Bool
  var wrappedValue:Int{
@@ -34,7 +24,7 @@ print(mixedRectangle.width, mixedRectangle.height)
   }
   set{
    if newValue > 12{
-    number = 12
+    number = 0
     projectedValue = true
    }else{
     number = newValue
@@ -51,17 +41,11 @@ struct SmallRectangle{
  @AnotherSmallNumber private var width:Int;@AnotherSmallNumber var height:Int
 }
 var rectangle = SmallRectangle()
-print(
- rectangle.height
-)
+print(rectangle.height)
 rectangle.height = 10
-print(
- rectangle.height
-)
+print(rectangle.height)
 rectangle.height = 24
-print(
- rectangle.height
-)
+print(rectangle.height)
 struct SomeStruct{
  @AnotherSmallNumber var someNumber:Int
 }
@@ -86,6 +70,6 @@ struct SizedRectangle{
     width = 10
     height = 10
   }
-  return $width || $height
+  return $width || $width
  }
 }
