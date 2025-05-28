@@ -1,20 +1,13 @@
 @propertyWrapper struct SmallNumber{private var number:Int;private let maximum:Int;var wrappedValue:Int{get{number}
-set{number = min(newValue,maximum)}};init(wrappedValue:Int,maximum:Int = 12){self.maximum = maximum;self.number = min(wrappedValue,maximum)}}
-struct MixedRectangle{
- @SmallNumber(maximum:10) var width = 5;@SmallNumber var height = 9
-}
-var mixedRectangle = MixedRectangle()
-print(
- mixedRectangle.width,
- mixedRectangle.height
-)
+set{number = min(newValue,maximum)}};init(wrappedValue:Int,maximum:Int = 12){self.maximum = maximum;self.number = min(wrappedValue,maximum)}};struct MixedRectangle{@SmallNumber(maximum:10) var width = 5;@SmallNumber var height = 9};var mixedRectangle = MixedRectangle()
+print(mixedRectangle.width,mixedRectangle.height)
 mixedRectangle.width = 20
 mixedRectangle.height = 20
 print(
  mixedRectangle.width,
  mixedRectangle.height
 )
-@propertyWrapper
+@propertyWrapper 
 struct AnotherSmallNumber{
  private var number:Int
  private(set) var projectedValue:Bool
@@ -24,7 +17,7 @@ struct AnotherSmallNumber{
   }
   set{
    if newValue > 12{
-    number = 0
+    number = 12
     projectedValue = true
    }else{
     number = newValue
@@ -41,19 +34,29 @@ struct SmallRectangle{
  @AnotherSmallNumber private var width:Int;@AnotherSmallNumber var height:Int
 }
 var rectangle = SmallRectangle()
-print(rectangle.height)
+print(
+ rectangle.height
+)
 rectangle.height = 10
-print(rectangle.height)
+print(
+ rectangle.height
+)
 rectangle.height = 24
-print(rectangle.height)
+print(
+ rectangle.height
+)
 struct SomeStruct{
  @AnotherSmallNumber var someNumber:Int
 }
 var someStruct = SomeStruct()
 someStruct.someNumber = 5
-print(someStruct.$someNumber)
+print(
+ someStruct.$someNumber
+)
 someStruct.someNumber = 55
-print(someStruct.$someNumber)
+print(
+ someStruct.$someNumber
+)
 enum Size{
  case large
  case small
@@ -70,6 +73,11 @@ struct SizedRectangle{
     width = 10
     height = 10
   }
-  return $width || $width
+  return $width || $height
  }
+}
+func someFucntion(){
+ @SmallNumber var myNumber:Int = 0
+ myNumber = 10
+ myNumber = 24
 }
