@@ -1,14 +1,5 @@
-@propertyWrapper struct SmallNumber{private var number:Int;private let maximum:Int;var wrappedValue:Int{get{number}
-set{number = min(newValue,maximum)}};init(wrappedValue:Int,maximum:Int = 12){self.maximum = maximum;self.number = min(wrappedValue,maximum)}};struct MixedRectangle{@SmallNumber(maximum:10) var width = 5;@SmallNumber var height = 9};var mixedRectangle = MixedRectangle()
-print(mixedRectangle.width,mixedRectangle.height)
-mixedRectangle.width = 20
-mixedRectangle.height = 20
-print(
- mixedRectangle.width,
- mixedRectangle.height
-)
 @propertyWrapper 
-struct AnotherSmallNumber{
+struct SmallNumber{
  private var number:Int
  private(set) var projectedValue:Bool
  var wrappedValue:Int{
@@ -31,7 +22,7 @@ struct AnotherSmallNumber{
  }
 }
 struct SmallRectangle{
- @AnotherSmallNumber private var width:Int;@AnotherSmallNumber var height:Int
+ @SmallNumber private var width:Int;@SmallNumber var height:Int
 }
 var rectangle = SmallRectangle()
 print(
@@ -46,7 +37,7 @@ print(
  rectangle.height
 )
 struct SomeStruct{
- @AnotherSmallNumber var someNumber:Int
+ @SmallNumber var someNumber:Int
 }
 var someStruct = SomeStruct()
 someStruct.someNumber = 5
@@ -62,8 +53,8 @@ enum Size{
  case small
 }
 struct SizedRectangle{
- @AnotherSmallNumber private var width:Int
- @AnotherSmallNumber private var height:Int
+ @SmallNumber private var width:Int
+ @SmallNumber private var height:Int
  mutating func resize(to size:Size)->Bool{
   switch size{
    case .large:
@@ -76,8 +67,11 @@ struct SizedRectangle{
   return $width || $height
  }
 }
-func someFucntion(){
- @SmallNumber var myNumber:Int = 0
+func someFunction(){
+ @SmallNumber var myNumber:Int
  myNumber = 10
  myNumber = 24
+}
+struct SomeStructure{
+ static let storedTypeProperty = "some value"
 }
