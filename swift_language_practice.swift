@@ -1,13 +1,10 @@
-@propertyWrapper 
-struct SmallNumber{
- private var number:Int
- private(set) var projectedValue:Bool
- var wrappedValue:Int{
+@propertyWrapper struct SmallNumber{
+ private var number:Int;private(set) var projectedValue:Bool;var wrappedValue:Int{
   get{
    return number
   }
   set{
-   if newValue > 12{
+   if newValue > 12{ 
     number = 12
     projectedValue = true
    }else{
@@ -55,7 +52,9 @@ enum Size{
 struct SizedRectangle{
  @SmallNumber private var width:Int
  @SmallNumber private var height:Int
- mutating func resize(to size:Size)->Bool{
+ mutating func resize(
+  to size:Size
+ )->Bool{
   switch size{
    case .large:
     width = 100
@@ -70,8 +69,17 @@ struct SizedRectangle{
 func someFunction(){
  @SmallNumber var myNumber:Int
  myNumber = 10
+ print(
+  myNumber
+ )
  myNumber = 24
+ print(
+  myNumber
+ )
 }
 struct SomeStructure{
- static let storedTypeProperty = "some value"
+ static private let storedTypeProperty = "some value"
+ static private var computedTypeProperty:Int{
+  return 0
+ }
 }
