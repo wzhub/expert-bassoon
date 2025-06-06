@@ -1,30 +1,6 @@
-@propertyWrapper struct SmallNumber{
- private var number:Int;private(set) var projectedValue:Bool;var wrappedValue:Int{
-  get{
-   return number
-  }
-  set{
-   if newValue > 12{ 
-    number = 12
-    projectedValue = true
-   }else{
-    number = newValue
-    projectedValue = false
-   }
-  }
- }
- init(){
-  self.number = 0
-  self.projectedValue = false
- }
-}
-struct SmallRectangle{
- @SmallNumber private var width:Int;@SmallNumber var height:Int
-}
-var rectangle = SmallRectangle()
-print(
- rectangle.height
-)
+@propertyWrapper struct SmallNumber{private var number:Int;private(set) var projectedValue:Bool;var wrappedValue:Int{get{number}
+set{if newValue > 12{number = 12;projectedValue = true}else{number = newValue;projectedValue = false}}};init(){self.number = 0;self.projectedValue = false}};struct SmallRectangle{@SmallNumber var height:Int};var rectangle = SmallRectangle()
+print(rectangle.height)
 rectangle.height = 10
 print(
  rectangle.height
@@ -78,8 +54,10 @@ func someFunction(){
  )
 }
 struct SomeStructure{
- static private let storedTypeProperty = "some value"
- static private var computedTypeProperty:Int{
+ static let storedTypeProperty = "some value"
+ static var computedTypeProperty:Int{
   return 0
  }
+}
+enum SomeEnumeration{
 }
