@@ -1,10 +1,10 @@
 let durations = """
-60,14
+120,232
 """
 var temporaryString = ""
 var durationStringList = [String]()
 for eachCharacter in durations + "\n"{
- if eachCharacter == "\n" || eachCharacter == ","{
+ if eachCharacter == "\n" || eachCharacter == "," {
   if !temporaryString.isEmpty{
    durationStringList.append(temporaryString)
    temporaryString = ""
